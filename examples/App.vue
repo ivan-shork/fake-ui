@@ -1,17 +1,23 @@
+<!--
+ * @Author: aven9527
+ * @Date: 2021-08-25 15:37:35
+ * @LastEditors: aven9527
+ * @LastEditTime: 2021-08-25 16:21:51
+ * @Description: file content
+-->
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <FakeButton />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    
   }
 }
 </script>
