@@ -1,11 +1,13 @@
 {
   "name": "fakeui",
   "version": "0.1.0",
+  "prefix": "fake",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "add": "node bin/add.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -18,6 +20,8 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "file-save": "^0.2.0",
+    "uppercamelcase": "^3.0.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
