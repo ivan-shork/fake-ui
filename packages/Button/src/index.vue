@@ -2,11 +2,12 @@
  * @Author: aven9527
  * @Date: 2021-08-25 18:39:37
  * @LastEditors: aven9527
- * @LastEditTime: 2021-08-25 19:03:17
+ * @LastEditTime: 2021-08-27 14:52:53
  * @Description: button 组件
 -->
 
 <template>
+<div class="fix">
   <button 
     class="fake-button"
     :disabled="disabled"
@@ -15,8 +16,11 @@
       'fake-button-' + size,
       {
         'is-round': round,
-        ['is-3d-' + type]: shadow && !plain,
-        'is-plain': plain
+        ['is-3d-' + type]: dimensional && !plain,
+        'is-plain': plain,
+        'is-disable': disabled,
+        'is-block': block,
+        'is-circle': circle
       }
     ]"
     @click="handleClick"
@@ -32,11 +36,14 @@
           </span>
         </div>
       </template>
-      <span class="fake-button-text" v-else>
-        {{ text }}
-      </span>
+      <div v-else>
+        <span class="fake-button-text" >
+          {{ text }}
+        </span>
+      </div>
     </div>
   </button> 
+</div>
 </template>
 
 <script>
@@ -70,7 +77,7 @@
       // 圆角 
       round: {
         type: Boolean,
-        default: false
+        default: true
       },
       // 禁用
       disabled: {
@@ -78,20 +85,35 @@
         default: false
       },
       // 3d
-      shadow: {
+      dimensional: {
         type: Boolean,
         default: false
+      },
+      // 块级按钮
+      block: {
+        type: Boolean,
+        default: false
+      },
+      // 圆形按钮
+      circle: {
+        type: Boolean,
+        default: false
+      }
+    },
+    methods: {
+      handleClick(e) {
+        this.$emit('click', e)
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-$default-color: #fff;
-$success-color: #009966;
+$info-color: #fff;
+$success-color:#7CCD7C;
 $danger-color: salmon;
-$info-color: gainsbro;
-$warning-color: #FF9933;
+$default-color: gainsbro;
+$warning-color:#FFA500;
 
   .fake-button {
     position: relative;
@@ -103,54 +125,62 @@ $warning-color: #FF9933;
     vertical-align: bottom;
     border: 2px solid;
     cursor: pointer;
-    // overflow: hidden;
+    overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
 
-    // border
-    // &::before {
-    //   content: "";
-    //   width: 100%;
-    //   height: 100%;
-    //   border: 2px solid;
-    //   border-color: inherit;
-    //   position: absolute;
-    //   top: 50%;
-    //   left: 50%;
-    //   transform: translate(-50%, -50%);
-    // }
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      transform: translate(-50%, -50%);
+      border: inherit;
+      border-color: #000;
+      border-radius: inherit;
+      top: 50%;
+      left: 50%;
+      opacity: 0;
+    }
 
-      &:active {
-        transform: perspective(300px) translateZ(-30px);
-        
-      }
+    &.is-disable::after {
+      opacity: .3;
+    }
+    
+    // 点击添加蒙层
+    &:active::after {
+      opacity: .2;
+    }
 
-      &-default {
-        background-color: $default-color;
+      &-info {
+        background-color: $info-color;
         color: #333;
-        border-color: #ebedf0;
+        border-color: #8B8B83;
       }
 
       &-success {
         background-color: $success-color;
         color: white;
-        border-color: $success-color;
+        border-color: #009966;
       }
 
-      &-info {
-        background-color: $info-color;
+      &-default {
+        background-color: $default-color;
         color: black;
-        border-color: $info-color;
+        border-color: $default-color;
       }
 
       &-danger {
         background-color: $danger-color;
         color: white;
-        border-color: $danger-color;
+        border-color: #EE0000;
       }
     
       &-warning {
         background-color: $warning-color;
         color: white;
-        border-color: $warning-color;
+        border-color: #663300;
       }
 
       &-small {
@@ -167,6 +197,16 @@ $warning-color: #FF9933;
         padding: 10px 26px;
         font-size: 16px;
       }
+  }
+
+  // 3d按钮点击特殊效果
+  [class*='3d']:active {
+        transform:perspective(300px) translateZ(0) scale(.9);
+        box-shadow: none;
+  }
+
+  .is-disable {
+    cursor: not-allowed;
   }
 
   .is-round {
@@ -190,24 +230,37 @@ $warning-color: #FF9933;
 
   }
   // 3d阴影 非朴素按钮才有效
-  .is-3d-default {
-    box-shadow:4px 4px 0 rgba($color: black	, $alpha: .4);
+  .is-3d-info {
+    box-shadow:4px 4px 0 rgba($color: #8B8B83	, $alpha: .8), 0 8px 5px rgba(0, 0, 0, .3);
   }
 
   .is-3d-success {
-    box-shadow:4px 4px 0 rgba($color: #336633	, $alpha: .8);
+    box-shadow:4px 4px 0 rgba($color: #009966	, $alpha: .8), 0 8px 5px rgba(0, 0, 0, .3);
   }
 
   .is-3d-danger {
-    box-shadow:4px 4px 0 rgba($color: red	, $alpha: .8);
+    box-shadow:4px 4px 0 rgba($color: #EE0000	, $alpha: .8), 0 8px 5px rgba(0, 0, 0, .3);
   }
 
-  .is-3d-info {
-    box-shadow:4px 4px 0 rgba($color: black	, $alpha: .8);
+  .is-3d-default {
+    box-shadow:3px 4px 0 rgba($color: black	, $alpha: .8), 0 8px 5px rgba(0, 0, 0, .3);
   }
 
   .is-3d-warning {
-    box-shadow:4px 4px 0 rgba($color: #663300, $alpha: .8);
+    box-shadow:4px 4px 0 rgba($color: #663300, $alpha: .8), 0 8px 5px rgba(0, 0, 0, .3);
   }
+
+  .is-block {
+    display: block;
+    width: 100%;
+  }
+
+  .is-circle {
+    padding: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+
 </style>
     
