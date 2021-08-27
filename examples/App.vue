@@ -7,8 +7,7 @@
 -->
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <FakeButton />
+    <FakeButton text="提交" type="danger" size="medium" round shadow  />
   </div>
 </template>
 

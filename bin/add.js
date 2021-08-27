@@ -59,7 +59,7 @@ const componentFiles = [
     filename: 'src/index.vue',
     content: `
 <template>
-  <div class="${prefix}-${componentName}-container">
+  <div class="${prefix}-${componentName}">
     ${PreFix}-${ComponentName}
   </div>
 </template>
