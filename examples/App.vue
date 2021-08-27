@@ -7,7 +7,7 @@
 -->
 <template>
   <div id="app">
-    <popup v-show="isVisible"></popup>
+    <FakeButton text="提交" type="danger" size="medium" round shadow  />
   </div>
 </template>
 

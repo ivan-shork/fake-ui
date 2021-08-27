@@ -21,6 +21,8 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "file-save": "^0.2.0",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^10.1.1",
     "uppercamelcase": "^3.0.0",
     "vue-template-compiler": "^2.6.11"
   },
