@@ -7,24 +7,28 @@
 -->
 <template>
   <div id="app">
-    <FakeButton text="提交" type="danger" size="medium" dimensional style="margin-bottom: 20px"  />
-    <FakeButton text="提交" type="info" size="medium"  style="margin-bottom: 20px"  dimensional />
-    <FakeButton text="提交sd" type="success" size="small" dimensional style="margin-bottom: 20px"   />
-    <FakeButton  type="warning" size="medium"  style="margin-bottom: 20px" dimensional icon="more" />
-    <FakeButton text="提交" size="medium"  dimensional />
+    <button @click="test">点击弹窗</button>
+    <FakeToast text="加载中..." :time="2000" ref="toast" mask :opcity="1" />
+    <button @click="test2">测试</button>
   </div>
 </template>
 
 <script>
-import visibleMixin from '@/mixins/visibleMixin.js'
-
 export default {
   name: 'App',
-  mixins: [visibleMixin],
   components: {
   },
   mounted() {
-    this.isVisible = true
+    
+  },
+  methods: {
+    test() {
+      this.$refs['toast'].show()
+    },
+    test2() {
+      console.log(1111);
+      
+    }
   }
 }
 </script>

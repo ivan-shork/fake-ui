@@ -6,7 +6,7 @@
  * @Description: file content
 -->
 <template>
-  <div class="fake-popup">
+  <div class="fake-popup" :style="{backgroundColor: popupBg, pointerEvents: pointEvents}">
     <div class="fake-popup-content fake-flex fake-middle">
       <slot name="content"></slot>
     </div>
@@ -16,7 +16,25 @@
 <script>
 export default {
   name: 'FakePopup',
-
+  props: {
+    opcity: {
+      type: Number,
+      default: 0
+    },
+    allowClick: {
+      type: Boolean,
+      default: true
+    }
+  },
+  computed: {
+    popupBg() {
+      // 有蒙版透明度不设 0， 没有设 0
+      return `rgba(0, 0, 0, ${this.opcity})`
+    },
+    pointEvents() {
+      return this.allowClick ? 'none' : ''
+    },
+  }
 }
 </script>
 
@@ -27,7 +45,6 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, .8);
     .fake-popup-content {
       width: 100%;
       height: 100%;
