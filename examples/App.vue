@@ -7,11 +7,11 @@
 -->
 <template>
   <div id="app">
-    <FakeButton text="提交" type="danger" size="medium" dimensional style="margin-bottom: 20px" block />
-    <FakeButton text="提交" type="info" size="medium"  style="margin-bottom: 20px" circle />
-    <FakeButton text="提交" type="success" size="medium" dimensional style="margin-bottom: 20px" disabled />
-    <FakeButton text="提交" type="warning" size="medium" dimensional style="margin-bottom: 20px" />
-    <FakeButton text="提交" size="medium"   />
+    <FakeButton text="提交" type="danger" size="medium" dimensional style="margin-bottom: 20px"  />
+    <FakeButton text="提交" type="info" size="medium"  style="margin-bottom: 20px"  dimensional />
+    <FakeButton text="提交sd" type="success" size="small" dimensional style="margin-bottom: 20px"   />
+    <FakeButton  type="warning" size="medium"  style="margin-bottom: 20px" dimensional icon="more" />
+    <FakeButton text="提交" size="medium"  dimensional />
   </div>
 </template>
 

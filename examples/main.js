@@ -9,10 +9,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import FakeUI from '../packages/index.js'
 import "./styles/common.scss"
+import {Icon} from 'element-ui'
+import "element-ui/lib/theme-chalk/icon.css"
 Vue.config.productionTip = false
+Vue.use(Icon)
 Vue.use(FakeUI)
-
-
 
 new Vue({
   render: h => h(App),

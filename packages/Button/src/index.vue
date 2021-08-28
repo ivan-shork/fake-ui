@@ -37,6 +37,9 @@
         </div>
       </template>
       <div v-else>
+        <span class="fake-button-icon" v-if="el_icon">
+          <i :class="el_icon"></i>
+        </span>
         <span class="fake-button-text" >
           {{ text }}
         </span>
@@ -98,10 +101,20 @@
       circle: {
         type: Boolean,
         default: false
+      },
+      // 使用element icon
+      icon: {
+        type: String,
+        required: false
+      }
+    },
+    computed: {
+      el_icon() {        
+        return this.icon ? `el-icon-${this.icon}` : ''
       }
     },
     methods: {
-      handleClick(e) {
+      handleClick(e) {        
         this.$emit('click', e)
       }
     }
@@ -257,9 +270,19 @@ $warning-color:#FFA500;
 
   .is-circle {
     padding: 0;
-    width: 50px;
-    height: 50px;
     border-radius: 50%;
+    &.fake-button-small {
+      width: 40px;
+      height: 40px;
+    }
+    &.fake-button-medium {
+      width: 50px;
+      height: 50px;
+    }
+    &.fake-button-big {
+      width: 60px;
+      height: 60px;
+    }
   }
 
 </style>
