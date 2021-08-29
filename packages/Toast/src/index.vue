@@ -10,8 +10,11 @@
 <fake-popup v-show="isVisible" :allowClick="allowClick" :opcity="bgOpcity">
   <template v-slot:content>
     <div class="fake-toast">
-      <div class="fake-toast-content">
-        <div v-if="icon" class="fake-toast-icon"></div>
+      <div class="fake-toast-content fake-flex fake-middle"
+        :style="toastStyle">
+        <div class="fake-toast-icon" v-if="el_icon">
+          <i :class="el_icon"></i>
+        </div>
         <div class="fake-toast-text">
           {{ toastText }}
         </div>
@@ -29,7 +32,7 @@ import visibleMixin from '@/mixins/visibleMixin'
     props: {
       text: {
         type: String,
-        require: true
+        require: true,
       },
       icon: {
         type: String,
@@ -47,6 +50,14 @@ import visibleMixin from '@/mixins/visibleMixin'
       opcity: {
         type: Number,
         default: 0.3,
+      },
+      color: {
+        type: String,
+        default: 'white'
+      },
+      bgColor: {
+        type: String,
+        default: 'gray'
       }
     },
     components: {
@@ -63,9 +74,22 @@ import visibleMixin from '@/mixins/visibleMixin'
         bgOpcity: 0,
       }
     },
+    computed: {
+      el_icon() {
+        return this.icon ? `el-icon-${this.icon}` : ''
+      },
+      toastStyle() {
+        const style = {}
+        style.color = this.color
+        style.background = this.bgColor
+        return style
+      }
+    },
     mounted() {
-      this.toastText = this.text
-      this.toastTime = this.time
+      this.toastText = this.text 
+      console.log(this.text);
+                 
+      this.toastTime = this.time      
       // 有蒙版不能点击
       this.allowClick = this.mask ? false : true
       this.bgOpcity = this.mask ? this.opcity : 0
@@ -105,11 +129,11 @@ import visibleMixin from '@/mixins/visibleMixin'
     &-content {
       max-width: 70%;
       padding: .5em 1em;
-      border: 1px solid gainsboro;
       border-radius: 7px;
-      background: gray;
-      color: white;
       animation: move .4s forwards;
+    }
+    &-icon {
+      margin-right: .2em;
     }
   }
 

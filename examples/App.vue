@@ -8,7 +8,6 @@
 <template>
   <div id="app">
     <button @click="test">点击弹窗</button>
-    <FakeToast text="加载中..." :time="2000" ref="toast" mask :opcity="1" />
     <button @click="test2">测试</button>
   </div>
 </template>
@@ -19,11 +18,14 @@ export default {
   components: {
   },
   mounted() {
-    
+    this.toast = this.$showToast({
+      text: '撒打算打算打算打算的'
+    })    
+
   },
   methods: {
     test() {
-      this.$refs['toast'].show()
+      this.toast.show()
     },
     test2() {
       console.log(1111);
