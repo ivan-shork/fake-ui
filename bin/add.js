@@ -54,6 +54,7 @@ fileSave(path.join(__dirname, '../components.json'))
 
 
 // 将component注入到目录中 1.创建vue模板 2.创建index.js
+const createTp = process.env.CREATE ? `Vue.prototype.$create${PreFix}${ComponentName}=create(${PreFix}${ComponentName},Vue)` : ''
 const componentFiles = [
   {
     filename: 'src/index.vue',
@@ -71,7 +72,7 @@ const componentFiles = [
 </script>
 
 <style lang="scss" scoped>
-  .${prefix}-${componentName}-container {
+  .${prefix}-${componentName} {
     
   }
 </style>
@@ -81,9 +82,10 @@ const componentFiles = [
     filename: 'index.js',
     content: `
 import ${PreFix}${ComponentName} from './src/index.vue'
-
+${process.env.CREATE ? "import create from '@/utils/create'" : ''} 
 ${PreFix}${ComponentName}.install = function(Vue) {
   Vue.component(${PreFix}${ComponentName}.name, ${PreFix}${ComponentName})
+  ${createTp} 
 }
 
 export default ${PreFix}${ComponentName}

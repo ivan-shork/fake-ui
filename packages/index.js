@@ -8,8 +8,8 @@
 
 import FakeButton from "./Button";
 import FakeToast from './Toast';
-
-const components = [FakeButton, FakeToast]
+import FakeMessage from './Message'
+const components = [FakeButton, FakeToast, FakeMessage]
 
 const install = function(Vue) {
   // 判断是否安装
@@ -28,5 +28,6 @@ export default{
   // 以下是具体的组件列表
   FakeButton,
   FakeToast,
+  FakeMessage,
   install
 };

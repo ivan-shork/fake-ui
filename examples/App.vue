@@ -18,17 +18,27 @@ export default {
   components: {
   },
   mounted() {
-    this.toast = this.$showToast({
-      text: '撒打算打算打算打算的'
-    })    
 
   },
   methods: {
     test() {
-      this.toast.show()
+      let d = this.$createFakeMessage({
+        message: '哈哈哈',
+        handleClose: ()=> {
+          console.log('已经关闭了哦');
+          
+        }
+      })
+      console.log(d);
+      d.show()
+      // d.show()
     },
     test2() {
       console.log(1111);
+      
+    },
+    onClose() {
+      console.log('关闭了');
       
     }
   }

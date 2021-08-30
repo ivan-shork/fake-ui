@@ -1,0 +1,44 @@
+{
+  "id": "2776018",
+  "name": "fake-ui",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1525906",
+      "name": "warn",
+      "font_class": "warn",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "1526019",
+      "name": "success",
+      "font_class": "success",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "6145901",
+      "name": "info",
+      "font_class": "info",
+      "unicode": "e6f5",
+      "unicode_decimal": 59125
+    },
+    {
+      "icon_id": "6932373",
+      "name": "warn2",
+      "font_class": "warn1",
+      "unicode": "e6d0",
+      "unicode_decimal": 59088
+    },
+    {
+      "icon_id": "6932374",
+      "name": "warn",
+      "font_class": "warn2",
+      "unicode": "e6d1",
+      "unicode_decimal": 59089
+    }
+  ]
+}
