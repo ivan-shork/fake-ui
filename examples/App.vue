@@ -7,8 +7,8 @@
 -->
 <template>
   <div id="app">
-    <button @click="test">点击弹窗</button>
-    <button @click="test2">测试</button>
+    <fake-button @click="test3"></fake-button>
+    <button @click="test">测试</button>
   </div>
 </template>
 
@@ -22,19 +22,20 @@ export default {
   },
   methods: {
     test() {
-      let d = this.$createFakeMessage({
+      this.message = this.$createFakeMessage({
         message: '哈哈哈',
-        handleClose: ()=> {
-          console.log('已经关闭了哦');
-          
-        }
+        type: 'success',
+        onClose: ()=> {
+          console.log('弹窗已关闭');
+        },
       })
-      console.log(d);
-      d.show()
-      // d.show()
+      this.message.show()
     },
     test2() {
-      console.log(1111);
+      
+    },
+    test3() {
+      console.log(this.$parent);
       
     },
     onClose() {

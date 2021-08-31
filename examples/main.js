@@ -14,6 +14,7 @@ import {Icon} from 'element-ui'
 import "element-ui/lib/theme-chalk/icon.css"
 Vue.config.productionTip = false
 Vue.use(Icon)
+Vue.use(FakeUI.FakeButton)
 Vue.use(FakeUI.FakeToast)
 Vue.use(FakeUI.FakeMessage)
 new Vue({

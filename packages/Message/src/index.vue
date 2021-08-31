@@ -1,7 +1,7 @@
 
 <template>
   <div class="fake-message" v-show="isVisible">
-    <div class="fake-message-content fake-flex fake-items-center fake-justify-around ">
+    <div class="fake-message-content fake-flex fake-items-center fake-justify-around" style="">
       <div class="fake-message-icon">
         <i :class="iconClass" :style="{color: iconColor}"></i>
       </div>
@@ -11,11 +11,14 @@
       <div class="fake-message-close">
         <i class="el-icon-error" @click="handleClose"></i>
       </div>
+      <div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+const CLOSE_EMIT = 'close'
 import visibleMixin from '@/mixins/visibleMixin'
   export default {
     name: 'FakeMessage',
@@ -71,10 +74,13 @@ import visibleMixin from '@/mixins/visibleMixin'
         }, this.duration)
       },
       handleClose(e) {
-        this.$emit('onClose', e)
+        this.$emit(CLOSE_EMIT, e)
         if(this.timer) clearTimeout(this.timer)
-        this.isVisible = false
-      }
+        // this.isVisible = false
+        this.remove()
+        console.log(this.$parent);
+        
+      },
     }
   }
 </script>

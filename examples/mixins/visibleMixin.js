@@ -45,7 +45,7 @@ let visibleMixin = {
       this.isVisible = true
       return this
     },
-    hide () {
+    hidden () {
       this.isVisible = false
       return this
     }
