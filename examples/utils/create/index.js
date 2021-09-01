@@ -1,17 +1,24 @@
+/*
+ * @Author: aven9527
+ * @Date: 2021-08-30 15:18:30
+ * @LastEditors: aven9527
+ * @LastEditTime: 2021-09-01 11:22:28
+ * @Description: file content
+ */
 import assign from '../assign'
 import {isFunction, isArray} from '../util'
 // 创建组件实例
-export default (component, Vue)=> {
+// firstOptions可以预先传props 挂载在vue实例data上的优先级最高
+export default (component, Vue, firstOptions = {})=> {
     return (optsFn, renderFn)=> {
         // let data = extendData(opts)
-        let componentInstance = createInstance(component, Vue, optsFn, renderFn)
+        let componentInstance = createInstance(component, Vue, optsFn, renderFn, firstOptions)
         const parent = componentInstance.$parent
         const originRemove = componentInstance.remove
         const originShow = componentInstance.show
         const originHide = componentInstance.hidden
         // 销毁组件
         componentInstance.remove = function () {
-        //业务逻辑中，如果手动调用了组件的remove方法，则在该组件上设置标志位
         componentInstance.$removed = true
             originRemove && originRemove.call(this)
             parent.destroy()
@@ -28,7 +35,7 @@ export default (component, Vue)=> {
     }
 }
 
-const extendData = (opts)=> {
+const extendData = (opts, firstOptions)=> {
     const dataExp = ['class', 'style', 'on', 'props','attrs', 'domProps', 'nativeOn', 'directives', 'scopedSlots', 'slot', 'key', 'ref', 'refInFor']
     const eventExp = /^on(.+)/
 
@@ -47,6 +54,11 @@ const extendData = (opts)=> {
                 props[key] = opts[key]
             }
         })
+
+        // firstOptions可以预先传props 挂载在vue实例data上的优先级最高
+        Object.keys(firstOptions).forEach(key=> {
+            props[key] = firstOptions[key]
+        })
     
         // data合并
         data.on = assign(on, data['on'])
@@ -58,14 +70,14 @@ const extendData = (opts)=> {
 }
 
 
-const createInstance = (Component, Vue, optsFn, renderFn)=> {
+const createInstance = (Component, Vue, optsFn, renderFn, firstOptions)=> {
     const instance = new Vue({
         render(h) {
             let children = renderFn && renderFn(h)
             // optsfn 可以是个对象也可以是个函数， 如果是函数的话可以利用 createElement函数， 如果是对象则直接返回去解析 
             // scopedslots属性实现作用域插槽
             let data = isFunction(optsFn) ? optsFn(h) : optsFn
-            let renderData = extendData(data)
+            let renderData = extendData(data, firstOptions)
 
             if(!isArray(children)) {
                 children = [children]
@@ -87,7 +99,7 @@ const createInstance = (Component, Vue, optsFn, renderFn)=> {
     // vue实例挂载 挂载在app的外层 不是在app里面
     instance.$mount()
     instance.init()
-    // 组件实例
+    // 组件实例 VueComponent
     const component = instance.$children[0]
     return component
 }

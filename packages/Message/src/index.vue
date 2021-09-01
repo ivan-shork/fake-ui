@@ -1,15 +1,15 @@
 
 <template>
-  <div class="fake-message" v-show="isVisible">
-    <div class="fake-message-content fake-flex fake-items-center fake-justify-around" style="">
+  <div class="fake-message" :class="{'fake-message-moveout': fadeout}" v-show="isVisible">
+    <div class="fake-message-content fake-flex fake-middle" :style="{backgroundColor: backgroundColor}">
       <div class="fake-message-icon">
-        <i :class="iconClass" :style="{color: iconColor}"></i>
+        <i :class="iconClass" style="color: #fff"></i>
       </div>
       <div class="fake-message-text">
         {{message}}
       </div>
       <div class="fake-message-close">
-        <i class="el-icon-error" @click="handleClose"></i>
+        <i class="el-icon-error" style="color: #fff" @click="handleClose"></i>
       </div>
       <div>
       </div>
@@ -32,22 +32,26 @@ import visibleMixin from '@/mixins/visibleMixin'
         type: String,
         required: true,
       },
+      showClose: {
+        type: Boolean,
+        default: false
+      }
     },
     computed: {
       iconClass() {
         return `iconfont icon-${this.type}`
       },
-      iconColor() {
+      backgroundColor() {
         let color
         switch (this.type) {
           case 'success': 
-            color = 'green';
+            color = '#336699';
             break;
           case 'warn': 
-            color = 'yellow';
+            color = '#FF6666';
             break;
           case 'info': 
-            color = 'gray';
+            color = '#999999';
             break;
           default:
             break;
@@ -55,10 +59,15 @@ import visibleMixin from '@/mixins/visibleMixin'
         return color
       }
     },
+    mounted() {
+      this.show()
+    },
     data() {
       return {
         duration: 3000,
-        timer: ''
+        timer: '',
+        fadeout: false,
+        close: false
       }
     },
     methods: {
@@ -67,60 +76,80 @@ import visibleMixin from '@/mixins/visibleMixin'
           clearTimeout(this.timer)
         }
         this.isVisible = true
+        // 提前几秒渐变退出
+        let fadeTimer = setTimeout(()=> {
+          this.fadeout = true
+          clearTimeout(fadeTimer)
+        }, this.duration - 400)
+        // 时间到 销毁组件 
         this.timer = setTimeout(()=> {
-          this.isVisible = false
-          // this.$el.parentNode.removeChild(this.$el)
-          clearTimeout(this.timer)
+          this.hidden()
         }, this.duration)
+      },
+      hidden() {
+        if(this.timer) clearTimeout(this.timer)
+        // 手动移除和自动移除不一样
+        if(this.close) {
+          let d = setTimeout(()=> {
+            this.remove()
+            clearTimeout(d)
+          }, 400)
+        } else {
+          this.remove()
+        }     
+      
       },
       handleClose(e) {
         this.$emit(CLOSE_EMIT, e)
-        if(this.timer) clearTimeout(this.timer)
-        // this.isVisible = false
-        this.remove()
-        console.log(this.$parent);
-        
+        this.fadeout = true
+        this.close = true
+        this.hidden()
       },
-    }
+    },
   }
 </script>
 
 <style lang="scss" scoped>
   .fake-message {
-    position: absolute;
-    height: 40px;
+    position: absolute; 
     width: 100%;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
+    left: 0;
     top: 20px;
     animation: move .4s forwards;
+    &-moveout {
+      animation: moveout .4s forwards;
+    }
     &-content {
       width: 220px;
-      height: 100%;
+      height: 40px;
+      line-height: 40px;
+      box-sizing: border-box;
       padding: 0 12px;
       background: #fff;
-      box-shadow: 0px 0px 4px rgba( 0, 0, 0, .5);
+      box-shadow: 0px 3px 4px rgba( 0, 0, 0, .5);
       border-radius: 5px;
     }
     &-icon {
-      display: flex;
-      margin: 0 10px;
+      margin: 0 10px 0 0;
       i {
-        font-size: 22px;
+        font-size: 16px;
       }
     }
     &-text {
       flex: 1;
-      text-align: left;
+      text-align: center;
+      color: #fff;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
     &-close {
-      display: flex;
       margin: 0 6px;
       i {
-        font-size: 22px;
+        font-size: 16px;
       }
     }
   }
@@ -131,7 +160,17 @@ import visibleMixin from '@/mixins/visibleMixin'
     }
     100% {
       transform: translate3d(0, 0, 0);
-      opacity: 1;
+      opacity: .9;
+    }
+  }
+  @keyframes moveout {
+    from {
+      transform: translate3d(0, 0, 0);
+      opacity: .9;
+    }
+    to {
+      transform: translate3d(0, -50%, 0);
+      opacity: 0;
     }
   }
 </style>

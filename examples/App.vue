@@ -2,13 +2,12 @@
  * @Author: aven9527
  * @Date: 2021-08-25 15:37:35
  * @LastEditors: aven9527
- * @LastEditTime: 2021-08-27 14:53:07
+ * @LastEditTime: 2021-09-01 15:53:36
  * @Description: file content
 -->
 <template>
   <div id="app">
-    <fake-button @click="test3"></fake-button>
-    <button @click="test">测试</button>
+    <fake-button @click="test3">testMessage</fake-button>
   </div>
 </template>
 
@@ -21,22 +20,14 @@ export default {
 
   },
   methods: {
-    test() {
-      this.message = this.$createFakeMessage({
-        message: '哈哈哈',
-        type: 'success',
-        onClose: ()=> {
-          console.log('弹窗已关闭');
-        },
-      })
-      this.message.show()
-    },
     test2() {
       
     },
     test3() {
-      console.log(this.$parent);
-      
+      this.$message.warn({
+        message: '哈垃圾哈哈',
+        showClose: true
+      })   
     },
     onClose() {
       console.log('关闭了');
