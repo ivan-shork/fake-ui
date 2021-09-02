@@ -2,11 +2,11 @@
  * @Author: aven9527
  * @Date: 2021-08-26 17:02:04
  * @LastEditors: aven9527
- * @LastEditTime: 2021-08-26 17:03:14
- * @Description: file content
+ * @LastEditTime: 2021-09-01 23:23:58
+ * @Description: visible
  */
 //组件挂载，显示隐藏
-const EVENT_TOGGLE = 'toggle'
+const EVENT_TOGGLE = 'update:visible'
 let visibleMixin = {
   model: {
     prop: 'visible',
@@ -25,16 +25,17 @@ let visibleMixin = {
   },
   watch: {
     isVisible (newVal) {
+      // 自动去跟新父亲组件上model的值
       this.$emit(EVENT_TOGGLE, newVal)
     }
   },
   mounted () {
-    //visible相关逻辑，一般用不到，除非组件上用到v-model属性
-    this.$watch('visible', (newVal, oldVal) => {
-      if (newVal) {
+    //visible监听 且必须为immdiate 
+    this.$watch('visible', (newVal) => {      
+      if (newVal) {        
         this.show()
-      } else if (oldVal) {
-        this.hide()
+      } else {        
+        this.hidden()
       }
     }, {
       immediate: true
@@ -45,7 +46,7 @@ let visibleMixin = {
       this.isVisible = true
       return this
     },
-    hidden () {
+    hidden () {      
       this.isVisible = false
       return this
     }

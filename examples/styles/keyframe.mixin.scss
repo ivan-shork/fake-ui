@@ -1,0 +1,22 @@
+@mixin fake-move {
+    @keyframes move {
+        from {
+            transform: translate3d(0, -2em, 0);
+            opacity: 0;
+        }
+        to {
+            transform: translate3d(0, 0, 0);
+            opacity: 1;
+        }
+    }
+    @keyframes moveout {
+        from {
+            transform: translate3d(0, 0, 0);
+            opacity: 1;
+        }
+        to {
+            transform: translate3d(0, -2em, 0);
+            opacity: 0;
+        }
+    }
+}

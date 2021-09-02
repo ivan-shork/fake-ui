@@ -2,22 +2,30 @@
  * @Author: aven9527
  * @Date: 2021-08-25 15:37:35
  * @LastEditors: aven9527
- * @LastEditTime: 2021-09-01 15:53:36
+ * @LastEditTime: 2021-09-01 23:25:15
  * @Description: file content
 -->
 <template>
   <div id="app">
-    <fake-button @click="test3">testMessage</fake-button>
+    <fake-layer ref="dialog" :visible.sync="dialogVisible"></fake-layer>
+    <fake-button text="打开dialog" dimensional @click="showDialog"/>
   </div>
 </template>
 
 <script>
+import FakeLayer from '../packages/common/layer'
 export default {
   name: 'App',
   components: {
+    FakeLayer
   },
   mounted() {
 
+  },
+  data() {
+    return {
+      dialogVisible: false
+    }
   },
   methods: {
     test2() {
@@ -32,6 +40,9 @@ export default {
     onClose() {
       console.log('关闭了');
       
+    },
+    showDialog() {
+      this.dialogVisible = true
     }
   }
 }

@@ -2,7 +2,7 @@
  * @Author: aven9527
  * @Date: 2021-08-25 15:37:35
  * @LastEditors: aven9527
- * @LastEditTime: 2021-09-01 15:24:17
+ * @LastEditTime: 2021-09-01 21:56:45
  * @Description: 入口文件
  */
 import Vue from 'vue'
@@ -12,8 +12,13 @@ import "./styles/common.scss"
 import "./assets/iconfont/iconfont.css"
 import {Icon} from 'element-ui'
 import "element-ui/lib/theme-chalk/icon.css"
+// 渐变
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
+import 'element-ui/lib/theme-chalk/base.css';
+
 Vue.config.productionTip = false
 Vue.use(Icon)
+Vue.use(CollapseTransition)
 Vue.use(FakeUI.FakeButton)
 Vue.use(FakeUI.FakeToast)
 Vue.use(FakeUI.FakeMessage)

@@ -2,28 +2,31 @@
  * @Author: aven9527
  * @Date: 2021-08-26 16:50:02
  * @LastEditors: aven9527
- * @LastEditTime: 2021-08-26 17:42:48
+ * @LastEditTime: 2021-09-01 22:53:15
  * @Description: file content
 -->
 <template>
-  <div class="fake-popup" :style="{backgroundColor: popupBg, pointerEvents: pointEvents}">
-    <div class="fake-popup-content fake-flex fake-middle">
+  <div 
+    class="fake-popup" 
+    :style="{backgroundColor: popupBg, pointerEvents: pointEvents, zIndex: 999}">
+    <div class="fake-popup-content fake-flex fake-middle" @click="maskClick">
       <slot name="content"></slot>
     </div>
   </div>
 </template>
 
 <script>
+let MASK_EMIT = 'clickMask'
 export default {
   name: 'FakePopup',
   props: {
     opcity: {
       type: Number,
-      default: 0
+      default: 0.3
     },
     allowClick: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   computed: {
@@ -34,6 +37,14 @@ export default {
     pointEvents() {
       return this.allowClick ? 'none' : ''
     },
+  },
+  methods: {
+    // 点击mask层触发事件
+    maskClick(e) {
+      if(e.target.className.includes('fake-popup-content')) {
+        this.$emit(MASK_EMIT)   
+      }      
+    }
   }
 }
 </script>
