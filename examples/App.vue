@@ -2,21 +2,25 @@
  * @Author: aven9527
  * @Date: 2021-08-25 15:37:35
  * @LastEditors: aven9527
- * @LastEditTime: 2021-09-01 23:25:15
+ * @LastEditTime: 2021-09-12 21:52:16
  * @Description: file content
 -->
 <template>
   <div id="app">
-    <fake-layer ref="dialog" :visible.sync="dialogVisible"></fake-layer>
+    <fake-dialog :visible.sync="dialogVisible"></fake-dialog>
+    <fake-layer :visible.sync="layerVisible"></fake-layer>
     <fake-button text="打开dialog" dimensional @click="showDialog"/>
+    <fake-button text="打开layer" dimensional @click="showLayer"/>
   </div>
 </template>
 
 <script>
+import FakeDialog from '../packages/Dialog'
 import FakeLayer from '../packages/common/layer'
 export default {
   name: 'App',
   components: {
+    FakeDialog,
     FakeLayer
   },
   mounted() {
@@ -24,11 +28,14 @@ export default {
   },
   data() {
     return {
-      dialogVisible: false
+      dialogVisible: false,
+      layerVisible: false
     }
   },
   methods: {
-    test2() {
+    showLayer() {
+      this.layerVisible = true
+      console.log(this.layerVisible);
       
     },
     test3() {

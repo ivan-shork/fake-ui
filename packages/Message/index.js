@@ -2,8 +2,8 @@
  * @Author: aven9527
  * @Date: 2021-08-30 15:18:30
  * @LastEditors: aven9527
- * @LastEditTime: 2021-09-01 11:21:25
- * @Description: file content
+ * @LastEditTime: 2021-09-12 17:45:42
+ * @Description: 消息弹窗
  */
 
 import FakeMessage from './src/index.vue'

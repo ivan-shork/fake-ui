@@ -2,7 +2,7 @@
  * @Author: aven9527
  * @Date: 2021-08-26 17:02:04
  * @LastEditors: aven9527
- * @LastEditTime: 2021-09-01 23:23:58
+ * @LastEditTime: 2021-09-12 22:21:09
  * @Description: visible
  */
 //组件挂载，显示隐藏
@@ -32,8 +32,10 @@ let visibleMixin = {
   mounted () {
     //visible监听 且必须为immdiate 
     this.$watch('visible', (newVal) => {      
-      if (newVal) {        
-        this.show()
+      if (newVal) {  
+        console.log('aaaaa');
+              
+        this.show()        
       } else {        
         this.hidden()
       }

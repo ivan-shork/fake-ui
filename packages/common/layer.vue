@@ -2,7 +2,7 @@
  * @Author: aven9527
  * @Date: 2021-09-01 20:48:04
  * @LastEditors: aven9527
- * @LastEditTime: 2021-09-01 23:08:43
+ * @LastEditTime: 2021-09-12 22:10:44
  * @Description: layer浮层
 -->
 <template>
@@ -25,7 +25,7 @@
                   </div>
               </div>
               <div class="fake-layer-close">
-                  <i class="el-icon-circle-close" @click="closeLayer"></i>
+                  <i class="el-icon-circle-close pointer"  @click="closeLayer"></i>
               </div>
           </div>
       </template>
@@ -57,12 +57,16 @@ export default {
         }
     },
     methods: {
+        close() {
+            this.$emit('closeLayer')
+        },
         closeLayer() {
             this.fadeout = true
             let d = setTimeout(()=> {
                 this.hidden()
                 clearTimeout(d)
             }, 200)
+            this.$emit('closeLayer')
         },
         show() {
             // fadeout设为false 进来时可以渐变进来 movein

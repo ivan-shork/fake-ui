@@ -1,4 +1,5 @@
 {
   "Button": "./packages/Button/index.js",
-  "Message": "./packages/Message/index.js"
+  "Message": "./packages/Message/index.js",
+  "Dialog": "./packages/Dialog/index.js"
 }

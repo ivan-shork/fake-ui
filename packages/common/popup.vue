@@ -2,13 +2,14 @@
  * @Author: aven9527
  * @Date: 2021-08-26 16:50:02
  * @LastEditors: aven9527
- * @LastEditTime: 2021-09-01 22:53:15
+ * @LastEditTime: 2021-09-12 21:59:10
  * @Description: file content
 -->
 <template>
   <div 
     class="fake-popup" 
-    :style="{backgroundColor: popupBg, pointerEvents: pointEvents, zIndex: 999}">
+    :style="{backgroundColor: popupBg, pointerEvents: pointEvents, zIndex: 999}"
+    >
     <div class="fake-popup-content fake-flex fake-middle" @click="maskClick">
       <slot name="content"></slot>
     </div>
@@ -17,6 +18,7 @@
 
 <script>
 let MASK_EMIT = 'clickMask'
+// import visibleMixin from '@/mixins/visibleMixin'
 export default {
   name: 'FakePopup',
   props: {
@@ -29,6 +31,7 @@ export default {
       default: false
     }
   },
+  // mixins: [visibleMixin],
   computed: {
     popupBg() {
       // 有蒙版透明度不设 0， 没有设 0
